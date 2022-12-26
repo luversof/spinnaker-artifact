@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - args:
-            - '--spring.profiles.active=${parameters.springProfilesActive}'
+            - '--spring.profiles.active=${parameters.springProfilesActive},test'
           image: '${parameters.imageHost}/luversof/${execution.application}:latest'
           name: spring
           ports:
