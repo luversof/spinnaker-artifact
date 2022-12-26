@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: '${execution.application}'
+  name: '${execution.application}-deployment'
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: '${execution.application}'
+  template:
+    metadata:
+      labels:
+        app: '${execution.application}'
+    spec:
+      containers:
+        - args:
+            - '--spring.profiles.active=${parameters.springProfilesActive}'
+          image: '${parameters.imageHost}/luversof/${execution.application}:latest'
+          name: spring
+          ports:
+            - containerPort: '${#toInt(parameters.nodePort)}'
+      imagePullSecrets:
+        - name: regcred
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: '${execution.application}'
+  name: '${execution.application}-service'
+  namespace: default
+spec:
+  ports:
+    - nodePort: '${#toInt(parameters.nodePort)}'
+      port: '${#toInt(parameters.nodePort)}'
+      protocol: TCP
+      targetPort: '${#toInt(parameters.nodePort)}'
+  selector:
+    app: '${execution.application}'
+  type: NodePort
