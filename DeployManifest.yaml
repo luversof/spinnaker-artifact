@@ -18,11 +18,12 @@ spec:
       containers:
         - args:
             - '--spring.profiles.active=${parameters.springProfilesActive}'
-          image: '${parameters.imageHost}/luversof/${execution.application}:latest'
+          image: >-
+            ${parameters.imageHost}/luversof/${execution.application}:${trigger.properties['build.version']}.${trigger.properties['build.number']}
           name: spring
-          workingDir: /usr/local/app
           ports:
             - containerPort: '${#toInt(parameters.nodePort)}'
+          workingDir: /usr/local/app
       imagePullSecrets:
         - name: regcred
 ---
