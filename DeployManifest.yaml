@@ -30,6 +30,12 @@ spec:
               port: ${#toInt(parameters.nodePort)}
             initialDelaySeconds: 3
             periodSeconds: 3
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: ${#toInt(parameters.nodePort)}
+            initialDelaySeconds: 3
+            periodSeconds: 3
       imagePullSecrets:
         - name: regcred
 ---
