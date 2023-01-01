@@ -27,9 +27,9 @@ spec:
           livenessProbe:
             httpGet:
               path: /actuator/health/liveness
-              port: 8080
-              initialDelaySeconds: 3
-              periodSeconds: 3
+              port: ${#toInt(parameters.nodePort)}
+            initialDelaySeconds: 3
+            periodSeconds: 3
       imagePullSecrets:
         - name: regcred
 ---
