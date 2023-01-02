@@ -28,14 +28,14 @@ spec:
             httpGet:
               path: /actuator/health/liveness
               port: ${#toInt(parameters.nodePort)}
-            initialDelaySeconds: 3
-            periodSeconds: 3
+            initialDelaySeconds: 20
+            periodSeconds: 10
           readinessProbe:
             httpGet:
               path: /actuator/health/readiness
               port: ${#toInt(parameters.nodePort)}
-            initialDelaySeconds: 3
-            periodSeconds: 3
+            initialDelaySeconds: 20
+            periodSeconds: 10
       imagePullSecrets:
         - name: regcred
 ---
