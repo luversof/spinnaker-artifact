@@ -18,11 +18,10 @@ spec:
       containers:
         - args:
             - '--spring.profiles.active=${parameters.springProfilesActive}'
-          image: >-
-            ${parameters.imageHost}/luversof/${execution.application}:${trigger.properties['build.version']}.${trigger.properties['build.number']}
+          image: ${parameters.imageHost}/luversof/${execution.application}:${parameters.buildVersion}.${parameters.buildNumber}
           name: spring
           ports:
-            - containerPort: '${#toInt(parameters.nodePort)}'
+            - containerPort: ${#toInt(parameters.nodePort)}
           workingDir: /usr/local/app
           livenessProbe:
             httpGet:
@@ -48,10 +47,10 @@ metadata:
   namespace: default
 spec:
   ports:
-    - nodePort: '${#toInt(parameters.nodePort)}'
-      port: '${#toInt(parameters.nodePort)}'
+    - nodePort: ${#toInt(parameters.nodePort)}
+      port: ${#toInt(parameters.nodePort)}
       protocol: TCP
-      targetPort: '${#toInt(parameters.nodePort)}'
+      targetPort: ${#toInt(parameters.nodePort)}
   selector:
     app: '${execution.application}'
   type: NodePort
