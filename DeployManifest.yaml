@@ -2,27 +2,27 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: '${execution.application}'
-  name: '${execution.application}-deployment'
+    app: '${parameters.name}'
+  name: '${parameters.name}-deployment'
   namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: '${execution.application}'
+      app: '${parameters.name}'
   template:
     metadata:
       labels:
-        app: '${execution.application}'
+        app: '${parameters.name}'
     spec:
       containers:
         - args:
             - '--spring.profiles.active=${parameters.springProfilesActive}'
-          image: ${parameters.imageHost}/luversof/${execution.application}:${parameters.buildVersion}.${parameters.buildNumber}
+          image: ${parameters.imageHost}/luversof/${parameters.artifactId}:${parameters.buildVersion}.${parameters.buildNumber}
           name: spring
           ports:
-            - containerPort: ${#toInt(parameters.nodePort)}
-          workingDir: /usr/local/app
+            - containerPort: ${#toInt(parameters.port)}
+#          workingDir: /usr/local/app
           livenessProbe:
             httpGet:
               path: /actuator/health/liveness
@@ -42,15 +42,15 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: '${execution.application}'
-  name: '${execution.application}-service'
+    app: '${parameters.name}'
+  name: '${parameters.name}-service'
   namespace: default
 spec:
   ports:
     - nodePort: ${#toInt(parameters.nodePort)}
-      port: ${#toInt(parameters.nodePort)}
+      port: ${#toInt(parameters.port)}
       protocol: TCP
-      targetPort: ${#toInt(parameters.nodePort)}
+      targetPort: ${#toInt(parameters.port)}
   selector:
     app: '${execution.application}'
   type: NodePort
