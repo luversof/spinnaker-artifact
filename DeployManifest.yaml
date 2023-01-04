@@ -43,6 +43,7 @@ kind: Service
 metadata:
   labels:
     app: '${parameters.name}'
+    spring-boot: "true"
   name: '${parameters.name}-service'
   namespace: default
 spec:
