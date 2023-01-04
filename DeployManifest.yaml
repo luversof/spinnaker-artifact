@@ -52,5 +52,5 @@ spec:
       protocol: TCP
       targetPort: ${#toInt(parameters.port)}
   selector:
-    app: '${execution.application}'
+    app: '${parameters.name}'
   type: NodePort
