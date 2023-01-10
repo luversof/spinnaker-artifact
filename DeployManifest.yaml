@@ -2,37 +2,36 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: '${parameters.name}'
-  name: '${parameters.name}-deployment'
+    app: '${name}'
+  name: '${name}-deployment'
   namespace: default
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: '${parameters.name}'
+      app: '${name}'
   template:
     metadata:
       labels:
-        app: '${parameters.name}'
+        app: '${name}'
     spec:
       containers:
         - args:
-            - '--spring.profiles.active=${parameters.springProfilesActive}'
-          image: ${parameters.imageHost}/luversof/${parameters.artifactId}:${parameters.buildVersion}.${parameters.buildNumber}
-          name: spring
-          ports:
-            - containerPort: ${#toInt(parameters.port)}
-#          workingDir: /usr/local/app
+            - '--spring.profiles.active=${springProfilesActive}'
+          image: '${imageHost}/luversof/${artifactId}:${buildVersion}.${buildNumber}'
           livenessProbe:
             httpGet:
               path: /actuator/health/liveness
-              port: ${#toInt(parameters.port)}
+              port: '${port}'
             initialDelaySeconds: 20
             periodSeconds: 10
+          name: spring
+          ports:
+            - containerPort: '${port}'
           readinessProbe:
             httpGet:
               path: /actuator/health/readiness
-              port: ${#toInt(parameters.port)}
+              port: '${port}'
             initialDelaySeconds: 20
             periodSeconds: 10
       imagePullSecrets:
@@ -42,16 +41,16 @@ apiVersion: v1
 kind: Service
 metadata:
   labels:
-    app: '${parameters.name}'
-    spring-boot: "true"
-  name: '${parameters.name}-service'
+    app: '${name}'
+    spring-boot: 'true'
+  name: '${name}-service'
   namespace: default
 spec:
   ports:
-    - nodePort: ${#toInt(parameters.nodePort)}
-      port: ${#toInt(parameters.port)}
+    - nodePort: '${nodePort}'
+      port: '${port}'
       protocol: TCP
-      targetPort: ${#toInt(parameters.port)}
+      targetPort: '${port}'
   selector:
-    app: '${parameters.name}'
+    app: '${name}'
   type: NodePort
