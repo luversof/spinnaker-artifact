@@ -30,9 +30,9 @@ spec:
             - containerPort: '${port}'
           resources:
             requests:
-              cpu: "100m"
+              cpu: "50m"
             limits:
-              cpu: "200m"
+              cpu: "500m"
           readinessProbe:
             httpGet:
               path: /actuator/health/readiness
