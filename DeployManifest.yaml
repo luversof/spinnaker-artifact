@@ -32,7 +32,7 @@ spec:
             requests:
               cpu: "200m"
             limits:
-              cpu: "4"
+              cpu: "1"
           readinessProbe:
             httpGet:
               path: /actuator/health/readiness
