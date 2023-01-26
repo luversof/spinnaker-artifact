@@ -54,3 +54,19 @@ spec:
   selector:
     app: '${name}'
   type: NodePort
+---
+apiVersion: autoscaling/v1 
+kind: HorizontalPodAutoscaler 
+metadata: 
+  labels: 
+    app: '${name}' 
+  name: '${name}'-hpa 
+  namespace: default 
+spec: 
+  scaleTargetRef: 
+    apiVersion: apps/v1 
+    kind: Deployment 
+    name: '${name}'-deployment 
+  minReplicas: 1 
+  maxReplicas: 1 
+  targetCPUUtilizationPercentage: 60
