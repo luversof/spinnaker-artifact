@@ -28,6 +28,11 @@ spec:
           name: spring
           ports:
             - containerPort: '${port}'
+          resources:
+            requests:
+              cpu: "250m"
+            limits:
+              cpu: "500m"
           readinessProbe:
             httpGet:
               path: /actuator/health/readiness
