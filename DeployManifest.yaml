@@ -67,7 +67,7 @@ spec:
     apiVersion: apps/v1 
     kind: Deployment
     name: '${name}-deployment'
-  minReplicas: 2 
+  minReplicas: 1 
   maxReplicas: 2 
   metrics:
   - type: Resource
@@ -76,3 +76,15 @@ spec:
       target:
         type: Utilization
         averageUtilization: 50
+status:
+  observedGeneration: 1
+  lastScaleTime: <some-time>
+  currentReplicas: 1
+  desiredReplicas: 1
+  currentMetrics:
+  - type: Resource
+    resource:
+      name: cpu
+      current:
+        averageUtilization: 0
+        averageValue: 0
