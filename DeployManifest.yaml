@@ -30,7 +30,7 @@ spec:
             - containerPort: '${port}'
           resources:
             requests:
-              cpu: "200m"
+              cpu: "50m"
             limits:
               cpu: "1"
           readinessProbe:
