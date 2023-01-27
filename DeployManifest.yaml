@@ -30,9 +30,9 @@ spec:
             - containerPort: '${port}'
           resources:
             requests:
-              cpu: "50m"
+              cpu: '${requestsCpu}'
             limits:
-              cpu: "1"
+              cpu: '${limitsCpu}'
           readinessProbe:
             httpGet:
               path: /actuator/health/readiness
@@ -72,8 +72,8 @@ spec:
     apiVersion: apps/v1 
     kind: Deployment
     name: '${name}-deployment'
-  minReplicas: 1 
-  maxReplicas: 2 
+  minReplicas: ${maxReplicas} 
+  maxReplicas: ${maxReplicas} 
   metrics:
   - type: Resource
     resource:
