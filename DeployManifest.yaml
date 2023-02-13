@@ -18,6 +18,7 @@ spec:
       containers:
         - args:
             - '--spring.profiles.active=${springProfilesActive}'
+          workingDir: /usr/local/app
           image: '${imageHost}/luversof/${artifactId}:${buildVersion}.${buildNumber}'
           livenessProbe:
             httpGet:
