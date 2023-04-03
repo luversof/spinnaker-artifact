@@ -36,7 +36,7 @@ spec:
               memory: '${requestsMemory}'
             limits:
               cpu: '${limitsCpu}'
-              memory: '${requestsMemory}'
+              memory: '${limitsMemory}'
           readinessProbe:
             httpGet:
               path: /actuator/health/readiness
