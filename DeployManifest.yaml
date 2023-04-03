@@ -39,8 +39,8 @@ spec:
             httpGet:
               path: /actuator/health/readiness
               port: '${port}'
-            initialDelaySeconds: 20
-            periodSeconds: 10
+            initialDelaySeconds: 30
+            periodSeconds: 20
       imagePullSecrets:
         - name: regcred
 ---
