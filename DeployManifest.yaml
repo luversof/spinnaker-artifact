@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - args:
-            - '--spring.profiles.active=${springProfilesActive}'
+            - '--spring.profiles.active=${springProfilesActive:k8sdev}'
             - '--spring.application.name=${name}'
           workingDir: /usr/local/app
           image: '${imageHost}/luversof/${artifactId}:${buildVersion}.${buildNumber}'
@@ -32,9 +32,11 @@ spec:
             - containerPort: '${port}'
           resources:
             requests:
-              cpu: '${requestsCpu}'
+              cpu: '${requestsCpu:100m}'
+              memory: '${requestsMemory:128Mi}'
             limits:
-              cpu: '${limitsCpu}'
+              cpu: '${limitsCpu:200m}'
+              memory: '${requestsMemory:256Mi}'
           readinessProbe:
             httpGet:
               path: /actuator/health/readiness
@@ -74,8 +76,8 @@ spec:
     apiVersion: apps/v1 
     kind: Deployment
     name: '${name}-deployment'
-  minReplicas: ${minReplicas} 
-  maxReplicas: ${maxReplicas} 
+  minReplicas: ${minReplicas:1} 
+  maxReplicas: ${maxReplicas:1} 
   metrics:
   - type: Resource
     resource:
