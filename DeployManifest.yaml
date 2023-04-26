@@ -33,10 +33,10 @@ spec:
             - containerPort: '${port}'
           resources:
             requests:
-#              cpu: '${requestsCpu}'
+              cpu: '${requestsCpu}'
               memory: '${requestsMemory}'
             limits:
-#              cpu: '${limitsCpu}'
+              cpu: '${limitsCpu}'
               memory: '${limitsMemory}'
           readinessProbe:
             httpGet:
